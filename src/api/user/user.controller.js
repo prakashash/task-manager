@@ -1,18 +1,41 @@
+const service = require ('./user.service');
+
 const getUser = (req,res) =>{
-    res.status(200).send("GET USER")
+    service.getUser(req).then((result)=>{
+        res.status(200).send(result);
+    }).catch((err)=>{
+        res.status(500).send(err);
+
+    })
 }
 
 const saveUser = (req,res) =>{
-    res.status(200).send("POST USER")
+    service.saveUser(req).then((result)=>{
+        res.status(200).send(result);
+    }).catch((err)=>{
+        res.status(500).send(err);
+
+    })
 }
 
 const updateUser = (req,res) =>{
-    res.status(200).send("UPDATE USER")
+    service.updateUser(req).then((result)=>{
+        res.status(200).send("Updeted");
+    }).catch((err)=>{
+        res.status(500).send(err);
+
+    })
 }
 
 const deleteUser = (req,res) =>{
-    res.status(200).send("DELETE USER")
+    service.deleteUser(req).then((result)=>{
+        res.status(200).send("Deleted");
+    }).catch((err)=>{
+        res.status(500).send(err);
+
+    })
 }
+
 
 module.exports = {
     getUser: getUser,
