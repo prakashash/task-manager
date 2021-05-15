@@ -3,12 +3,17 @@ require ('./db/mongoose');
 
 const express = require ('express');
 const app = express();
+const path = require ("path");
 const User = require ('./models/user');
 const Task = require ('./models/task');
+const Taskservice = require ('./api/task/task.service')
+const Userservice = require ('./api/user/user.service')
+
 
 const routes = require ('./routes')
 
 const bodyParser = require('body-parser');
+const userService = require('./api/user/user.service');
 
 app.use(bodyParser.urlencoded({ extended: false }))
  
@@ -16,77 +21,39 @@ app.use(bodyParser.json())
 
 routes.apiRoutes(app);
 
-// app.post('/api/user',(req,res)=>{
+const publicDirPath = path.join(__dirname,'../public');
+const viewPath = path.join(__dirname,'../template/views');
+const partialPath = path.join(__dirname,'../template/partials');
 
-//     var user = new User(req.body);
-//     user.save().then((user)=>{
-//         res.status(201).send({
-//             user:user
-//         })
-//     }).catch((err)=>{
-//         res.status(500).send(err);
-
-//     })
-// })
-
-// app.post('/api/task',(req,res)=>{
-
-//     var task = new Task(req.body);
-//     task.save().then((task)=>{
-//         res.status(201).send({
-//             task:task
-//         })
-//     }).catch((err)=>{
-//         res.status(500).send(err);
-//     })
-// })
-
-// app.get('/api/user',(req,res)=>{
-
-//     console.log(req.query)
-
-//     User.find(req.query).then((user)=>{
-//         res.status(201).send({
-//             user:user
-//         })
-//     }).catch((err)=>{
-//         res.status(500).send(err);
-//     })
-// })
-
-// app.get('/api/user/:id',(req,res)=>{
-
-//     User.findById(req.params.id).then((user)=>{
-//         res.status(201).send({
-//             user:user
-//         })
-//     }).catch((err)=>{
-//         res.status(500).send(err);
-//     })
-// })
-
-// app.put('/api/user/:id',(req,res)=>{
-
-//     User.findByIdAndUpdate(req.params.id, req.body).then((updateduser)=>{
-//         res.status(201).send("updated sucessfully")
-//     }).catch((err)=>{
-//         res.status(500).send(err);
-//     })
-// })
-// app.delete('/api/user/:id',(req,res)=>{
-
-//     User.findByIdAndDelete(req.params.id).then((user)=>{
-//         res.status(200).send("Deleted sucessfully")
-//     }).catch((err)=>{
-//         res.status(500).send(err);
-//     })
-// })
+app.use(express.static(publicDirPath));
+app.set('view engine', 'hbs');
+app.set('views', viewPath);
 
 
-app.get('',(req,res)=>{
-    res.send({
-        "title":"task"
+
+
+app.get('/task',(req,res)=>{
+    
+    Taskservice.getTask(req).then((taskArr)=>{
+        res.render('task', {
+            title : 'Task page',
+            taskArr : taskArr
+        })
+    }).catch((err)=>{
+        res.status(500).send('Unable to render page')
+
     })
+})
+
+app.get('/task/add', (req,res)=>{
+    userService.getUser(req).then((user)=>{
+        res.render('addTask',{
+            user : user
+        }).catch((err)=>{
+            res.status(500).send('Unable to render page')
+        })
+    })
+    
 })
 
 app.listen('8000', ()=>{

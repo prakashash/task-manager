@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>task</title>
+    </head>
+    <body>
+        {{#if title}}
+            <h2>{{title}}</h2>
+        {{/if}}
+
+        {{#if showUserName}}
+            <h3>{{createdBy}}</h3>
+        {{else}}
+            <h3>Unknown Author</h3>
+        {{/if}}
+        {{#unless err}}
+            <h4>Warning: Success</h4>
+        {{/unless}}
+
+        <ul>
+            {{#each taskArr}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+
+        <ol>
+            {{#each fruitArr}}
+                <li>{{this}}</li>
+            {{/each}}
+
+        </ol>
+        <h1>Student table</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>description</th>
+                    <th>Status</th>
+                    <th>owner</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each taskArr}}
+                    <tr>
+                        <td>{{this.description}}</td>
+                        <td>
+                            {{#if this.completed}}
+                                completed
+                            {{else}}
+                                Incomplete
+                            {{/if}}                            
+                        </td>
+                        <td>{{this.owner}}</td>
+
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </body>
+</html>

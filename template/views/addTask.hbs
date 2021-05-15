@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Add task</title>
+    </head>
+    <body>
+        <form>
+            <label>Description</label>
+            <input type="text" id="description"><br><br>
+            <select>
+                <option value="true">Completed</option>
+                <option value="false">Incompleted</option>
+            </select><br><br>
+            <select>
+                {{#each user}}
+                    <option>{{this.name}}</option>
+                {{/each}}
+            </select><br><br>
+            <input type="submit"><br>
+            <input type="reset">
+        </form>
+    </body>
+</html>
