@@ -29,9 +29,6 @@ app.use(express.static(publicDirPath));
 app.set('view engine', 'hbs');
 app.set('views', viewPath);
 
-
-
-
 app.get('/task',(req,res)=>{
     
     Taskservice.getTask(req).then((taskArr)=>{
@@ -49,8 +46,6 @@ app.get('/task/add', (req,res)=>{
     userService.getUser(req).then((user)=>{
         res.render('addTask',{
             user : user
-        }).catch((err)=>{
-            res.status(500).send('Unable to render page')
         })
     })
     

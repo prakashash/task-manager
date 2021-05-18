@@ -1,6 +1,8 @@
 <html>
     <head>
         <title>task</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src = "/js/task.js"></script>
     </head>
     <body>
         {{#if title}}
@@ -53,6 +55,8 @@
                     </tr>
                 {{/each}}
             </tbody>
+            <button id="addBtn">Add</button><br>
+            <button id="deleteBtn">Delete</button>
         </table>
     </body>
 </html>
