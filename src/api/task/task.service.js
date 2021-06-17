@@ -1,8 +1,16 @@
 const Task = require('../../models/task');
 
-const getTask = (req)=>{
+const getTask = async(req)=>{
     try{
-        return Task.find(req.query)
+        const task = await Task.find(req.query).populate('owner');
+    }catch(err){
+        throw Error(err)
+    }
+};
+
+const getTaskById = (req)=>{
+    try{
+        return Task.findById(req.params.id, req.body)
     }catch(err){
         throw Error(err)
     }
@@ -35,6 +43,7 @@ const deleteTask = (req)=>{
 
 module.exports= {
     getTask : getTask,
+    getTaskById: getTaskById,
     saveTask : saveTask,
     updateTask : updateTask,
     deleteTask : deleteTask

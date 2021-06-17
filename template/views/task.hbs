@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>task</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/js/jquery-3.6.0.js"></script>
         <script src = "/js/task.js"></script>
     </head>
     <body>
@@ -34,14 +34,18 @@
         <table>
             <thead>
                 <tr>
+                    <th></th>
                     <th>description</th>
                     <th>Status</th>
                     <th>owner</th>
                 </tr>
             </thead>
             <tbody>
+                <button style="float: right;" id="logoutBtn">Logout</button>
+                <button style="float: right;" id="resetBtn">Reset password</button>
                 {{#each taskArr}}
                     <tr>
+                        <td><input type = "checkbox" id="{{this.id}}"></td>
                         <td>{{this.description}}</td>
                         <td>
                             {{#if this.completed}}
@@ -50,7 +54,7 @@
                                 Incomplete
                             {{/if}}                            
                         </td>
-                        <td>{{this.owner}}</td>
+                        <td>{{this.owner.name}}</td>
 
                     </tr>
                 {{/each}}
@@ -58,5 +62,14 @@
             <button id="addBtn">Add</button><br>
             <button id="deleteBtn">Delete</button>
         </table>
+        <div class="pagination">
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">7</a>
+        </div>
     </body>
 </html>
